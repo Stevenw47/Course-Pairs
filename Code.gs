@@ -1,8 +1,13 @@
+/*
+ * function generatePairs() - A function that takes input of student requests from spreadsheet and outputs course pairs and number of requests / clashes
+ *
+ * by Steven Wong and Jeffrey Kam Ho Yin
+ */
 function generatePairs() {
-  var sheet = SpreadsheetApp.getActiveSheet();
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Input");
   var data = sheet.getDataRange().getValues();
   var allCourses = [];
-  var output = [];
+  var output = [["Course 1", "Course 2", "Num Clashes"]];
   for(var i = 0; i < data.length; i++){
     var numOfCourses = data[i][0];
     for(var j = 0; j < data[i].length; j++){
@@ -40,23 +45,9 @@ function generatePairs() {
             numOfClashes++; 
           }
           output.push([allCourses[i], allCourses[j], numOfClashes]);
-        }
+        } 
       }
     }
   }
-  sheet.getRange(1, 1, output.length, output[0].length).setValues(output);
-  error
-}
-
-function test(){
-  var array = [];
-  var pair1 = ["bye", "hi"];
-  var pair2 = ["hi", "bye"];
-  pair2.sort();
-  var string1 = pair2.toString()
-  array.push("sad");
-  array.push(string1);
-  var sheet = SpreadsheetApp.getActiveSheet();
-  var value = array.indexOf(pair2.toString());
-  error
+  SpreadsheetApp.getActiveSpreadsheet().insertSheet().getRange(1, 1, output.length, output[0].length).setValues(output);
 }
